@@ -1,0 +1,46 @@
+<link rel="import" href="../neuron-base/neuron-base.html">
+
+
+<dom-module id="neuron-field">
+  <style>
+			:host{
+				display: flex;
+			}
+
+			svg {
+				width: 100%;
+				height: 100%;
+			}
+		</style>
+  <template>
+		<svg>
+
+		</svg>
+		<!--<template is="dom-repeat" items="{{neuronValues}}" as="value" index-as="i">
+			<p class$="{{state}}"><span>{{label}}</span> <span>{{trunc(value)}}</span> <span>{{unit}}</span></p>
+		</template>-->
+
+		<shadow></shadow>
+	</template>
+</dom-module>
+<script>
+	Polymer({
+		is: 'neuron-field',
+		behaviors: [DiyaBehaviors.Neuron],
+		properties: {
+		},
+
+		observers: [
+			"onValue(neuronValues)"
+		],
+
+		ready: function () {
+		},
+
+		onValue: function(neuronValues) {
+			console.log(neuronValues);	
+		}
+
+
+	});
+</script>
