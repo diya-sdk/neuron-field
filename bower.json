@@ -17,6 +17,6 @@
   ],
   "dependencies": {
     "neuron-base": "partnering/neuron-base#master",
-    "d3": "^4.2.1"
+    "d3": "~3.5.5"
   }
 }
