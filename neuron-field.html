@@ -11,14 +11,20 @@
 				width: 100%;
 				height: 100%;
 			}
+
+			svg path {
+				fill: rgba(255,0,0,0.9);
+			}
 		</style>
   <template>
-		<svg>
-
+		  <svg id="svg" viewBox="0 0 1 2" preserveAspectRatio="none">
+  			<defs>
+				<filter id="f1"> 
+					<feGaussianBlur in="SourceGraphic" stdDeviation="0.15" />
+				</filter>
+			</defs>
+			<path filter="url(#f1)"></path>
 		</svg>
-		<!--<template is="dom-repeat" items="{{neuronValues}}" as="value" index-as="i">
-			<p class$="{{state}}"><span>{{label}}</span> <span>{{trunc(value)}}</span> <span>{{unit}}</span></p>
-		</template>-->
 
 		<shadow></shadow>
 	</template>
@@ -38,7 +44,16 @@
 		},
 
 		onValue: function(neuronValues) {
-			console.log(neuronValues);	
+			var lineFunction = d3.svg.area()
+						.x(function(d, i) { return i / (neuronValues.length - 1); })
+						.y0(2)
+						.y1(function(d) { return 2 - d; })
+						.interpolate("basis");
+
+			var svgContainer = d3.select(this.$.svg);
+
+			var lineGraph = svgContainer.select("path")
+				.attr("d", lineFunction(neuronValues))
 		}
 
 
