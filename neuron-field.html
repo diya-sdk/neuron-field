@@ -12,8 +12,14 @@
 				height: 100%;
 			}
 
+			svg path[data-fill] {
+				fill: var(--neuron-field-color, rgba(255,0,0,0.9));
+			}
+
 			svg path {
-				fill: rgba(255,0,0,0.9);
+				fill: none;
+				stroke: var(--neuron-field-color, rgba(0,0,255,1));
+				stroke-width: 0.02px;
 			}
 		</style>
   <template>
@@ -22,10 +28,13 @@
 				<filter id="f1"> 
 					<feGaussianBlur in="SourceGraphic" stdDeviation="0.15" />
 				</filter>
+				<filter id="f2"> 
+					<feGaussianBlur in="SourceGraphic" stdDeviation="0" />
+				</filter>
 			</defs>
-			<g filter="url(#f1)">
+			<g filter$="{{computeFilter(blur)}}">
 				<rect fill="none" width="1" height="2" />
-				<path></path>
+				<path data-fill$="{{fill}}"></path>
 			</g>
 		</svg>
 
@@ -37,6 +46,8 @@
 		is: 'neuron-field',
 		behaviors: [DiyaBehaviors.Neuron],
 		properties: {
+			blur: { type: Boolean, notify: false, value: false },
+			fill: { type: Boolean, notify: false, value: false }
 		},
 
 		observers: [
@@ -57,8 +68,11 @@
 
 			var lineGraph = svgContainer.select("path")
 				.attr("d", lineFunction(neuronValues))
-		}
+		},
 
+		computeFilter: function(blur) {
+			return blur ? 'url(#f1)' : 'url(#f2)';
+		}
 
 	});
 </script>
