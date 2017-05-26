@@ -2,7 +2,8 @@
 
 
 <dom-module id="neuron-field">
-  <style>
+	<template>
+		<style>
 			:host{
 				display: flex;
 			}
@@ -22,9 +23,9 @@
 				stroke-width: 0.02px;
 			}
 		</style>
-  <template>
-		  <svg id="svg" viewBox="0 0 1 2" preserveAspectRatio="none">
-  			<defs>
+
+		<svg id="svg" viewBox="0 0 1 2" preserveAspectRatio="none">
+			<defs>
 				<filter id="f1"> 
 					<feGaussianBlur in="SourceGraphic" stdDeviation="0.15" />
 				</filter>
@@ -59,10 +60,10 @@
 
 		onValue: function(neuronValues) {
 			var lineFunction = d3.svg.area()
-						.x(function(d, i) { return i / (neuronValues.length - 1); })
-						.y0(3)
-						.y1(function(d) { return 2 - d; })
-						.interpolate("basis");
+				.x(function(d, i) { return i / (neuronValues.length - 1); })
+				.y0(3)
+				.y1(function(d) { return 2 - d; })
+				.interpolate("basis");
 
 			var svgContainer = d3.select(this.$.svg);
 
